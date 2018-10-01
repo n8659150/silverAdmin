@@ -1,47 +1,45 @@
 <template>
-  <el-main>
-    <el-table :data="tableData5" style="width: 100%">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form label-position="left" inline class="demo-table-expand">
-            <el-form-item label="商品名称">
+    <el-main>
+        <el-table show-summary :data="tableData5" :summary-method="getSummaries" :header-cell-style="{'background-color':'#f5f7fa'}" style="width: 100%">
+            <el-table-column type="expand">
+                <template slot-scope="props">
+                    <el-form label-position="left" inline class="demo-table-expand" style="display:flex;" v-for="(item,key) in props.row.items" :key="key">
+                        <!-- <el-form-item label="商品名称">
               <span>{{ props.row.name }}</span>
             </el-form-item>
             <el-form-item label="所属店铺">
               <span>{{ props.row.shop }}</span>
-            </el-form-item>
-            <el-form-item label="商品 ID">
-              <span>{{ props.row.id }}</span>
-            </el-form-item>
-            <el-form-item label="店铺 ID">
-              <span>{{ props.row.shopId }}</span>
-            </el-form-item>
-            <el-form-item label="商品分类">
-              <span>{{ props.row.category }}</span>
-            </el-form-item>
-            <el-form-item label="店铺地址">
-              <span>{{ props.row.address }}</span>
-            </el-form-item>
-            <el-form-item label="商品描述">
-              <span>{{ props.row.desc }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
-      <el-table-column label="商品 ID" prop="id">
-      </el-table-column>
-      <el-table-column label="商品名称" prop="name">
-      </el-table-column>
-      <el-table-column label="描述" prop="desc">
-      </el-table-column>
-      <el-table-column label="分类" prop="category">
-      </el-table-column>
-      <el-table-column label="店铺" prop="shop">
+            </el-form-item> -->
+
+                        <el-form-item :label="'商品' + String(key + 1)">
+                            <span>{{ item.name }}</span>
+                        </el-form-item>
+                        <el-form-item label="价格">
+                            <span>{{ item.price }}</span>
+                        </el-form-item>
+                        <el-form-item label="数量">
+                            <span>{{ item.quantity }}</span>
+                        </el-form-item>
+                        <el-form-item label="总价">
+                            <span>{{item.price * item.quantity }}</span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column label="单号" prop="id">
+            </el-table-column>
+            <el-table-column label="客户" prop="shop">
+            </el-table-column>
+            <el-table-column label="商品数量" prop="itemQty">
+            </el-table-column>
+            <el-table-column label="总价" prop="total">
+            </el-table-column>
+            <!-- <el-table-column label="店铺" prop="shop">
       </el-table-column>
       <el-table-column label="地址" prop="address">
-      </el-table-column>
-    </el-table>
-  </el-main>
+      </el-table-column> -->
+        </el-table>
+    </el-main>
 </template>
 
 <script>
@@ -51,115 +49,211 @@ export default {
         return {
             tableData5: [
                 {
-                    id: "12987122",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "001",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987123",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "002",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987125",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "003",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987126",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "004",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987126",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "005",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987126",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "006",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987126",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "007",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987126",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "008",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987126",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "009",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987126",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "010",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987126",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "011",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 },
                 {
-                    id: "12987126",
-                    name: "好滋好味鸡蛋仔",
-                    category: "江浙小吃、小吃零食",
-                    desc: "荷兰优质淡奶，奶香浓而不腻",
-                    address: "上海市普陀区真北路",
-                    shop: "王小虎夫妻店",
-                    shopId: "10333"
+                    id: "012",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
+                },
+                {
+                    id: "013",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
+                },
+                {
+                    id: "014",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
+                },
+                {
+                    id: "015",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
+                },
+                {
+                    id: "016",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
+                },
+                {
+                    id: "017",
+                    items: [
+                        { name: "Gucci水桶包", price: "500", quantity: "2" },
+                        { name: "LV水桶包", price: "260", quantity: "2" }
+                    ],
+                    shop: "周嘉琪",
+                    itemQty: "2",
+                    total: "1520"
                 }
             ]
         };
+    },
+    methods: {
+        getSummaries(param) {
+            const { columns, data } = param;
+            const sums = [];
+            columns.forEach((column, index) => {
+                if (index === 1) {
+                    sums[index] = "总价";
+                    return;
+                }
+                
+                const values = data.map(item => Number(item[column.property]));
+                if (!values.every(value => isNaN(value))) {
+                    sums[index] = values.reduce((prev, curr) => {
+                        const value = Number(curr);
+                        if (!isNaN(value)) {
+                            return prev + curr;
+                        } else {
+                            return prev;
+                        }
+                    }, 0);
+                    if (index === 3) {
+                        sums[index] += " 件";
+                    }
+                    if (index === 4) {
+                        sums[index] += " 元";
+                    }
+                } else {
+                    return;
+                }
+            });
+
+            return sums;
+        }
     }
 };
 </script>
