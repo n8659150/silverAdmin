@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="tableData5" show-summary :summary-method="getSummaries" :span-method="cellMerge" border :header-cell-style="{'background-color':'#f5f7fa'}" style="width: 100%">
+    <el-table :data="tableData5" show-summary :summary-method="getSummaries" :span-method="cellMerge" border :header-cell-style="{'background-color':'#f5f7fa','color':'#3F536E'}" style="width: 100%">
       <el-table-column prop="id" label="序号">
       </el-table-column>
       <el-table-column prop="customer" label="客户">
@@ -161,5 +161,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
+.has-gutter {
+    color: #3f536e;
+    font-weight: bold;
+    font-size: 14px;
+}
 </style>
