@@ -11,23 +11,20 @@
             <SilverHeader></SilverHeader>
             <el-container>
                 <el-aside width="200px">
-                    <el-menu default-active="2" style="height:100%;">
-                        <router-link to="/NewOrder">
-                            <el-menu-item index="1">
-                                <span slot="title">添加订单</span>
-                            </el-menu-item>
-                        </router-link>
-                         <router-link to="/">
-                        <el-menu-item index="2">
+                    <el-menu :default-active="$route.path" style="height:100%;" router>
+
+                        <el-menu-item index="/NewOrder">
+                            <span slot="title">添加订单</span>
+                        </el-menu-item>
+
+                        <el-menu-item index="/">
                             <span slot="title">查看订单</span>
                         </el-menu-item>
-                        </router-link>
+
                         <el-menu-item index="3">
-                           
                             <span slot="title">导航三</span>
                         </el-menu-item>
                         <el-menu-item index="4">
-                          
                             <span slot="title">导航四</span>
                         </el-menu-item>
                     </el-menu>

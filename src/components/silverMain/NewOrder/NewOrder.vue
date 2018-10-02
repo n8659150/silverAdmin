@@ -1,11 +1,25 @@
 <template>
     <div>
+        <div class="meta-info">
+            <!-- <span>序号:</span> -->
+            <!-- <el-input size="small" placeholder="请输入序号" v-model="orderNum" clearable>
+            </el-input> -->
+            <el-input size="small" placeholder="请输入序号" v-model="orderNum">
+                <template slot="prepend">订单序号</template>
+            </el-input>
+            <span class="meta-info-divider"></span>
+            <!-- <span>客户:</span> -->
+            <el-input size="small" placeholder="请输入客户" v-model="customerName">
+                <template slot="prepend">客户名称</template>
+            </el-input>
+        </div>
+
         <div class="at-table at-table--large">
             <div class="at-table__content">
 
                 <div class="at-table__body">
                     <table>
-                        <colgroup><col width="117"><col width="124"><col width="230"><col width="292"></colgroup>
+                        <colgroup><col ><col ><col ><col ></colgroup>
                         <thead class="at-table__thead">
                             <tr>
 
@@ -40,7 +54,7 @@
                                 </td>
                                 <td class="at-table__cell table-center">
 
-                                    <at-select v-model="dataModel[index].model" placeholder="请选择" style="width:200px" filterable>
+                                    <at-select v-model="dataModel[index].model" placeholder="请选择"  filterable>
                                         <at-option v-for="(item,key) in priceList" :value="item.name" :key="key" v-if="priceList.length > 0">{{item.name}}</at-option>
                                     </at-select>
                                 </td>
@@ -81,7 +95,9 @@ export default {
             // item_name: "",
             records: [],
             dataModel: [],
-            priceList: []
+            priceList: [],
+            orderNum: "",
+            customerName: ""
         };
     },
     methods: {
@@ -100,19 +116,17 @@ export default {
         }
     },
     mounted() {
-        for (let i = 0; i < 2; i++) {
-            let item = { model: "请选择" };
-            let record = { name: "default_item", price: 0, count: 0 };
-            this.dataModel.push(item);
-            this.records.push(record);
-        }
+        let item = { model: "请选择" };
+        let record = { name: "default_item", price: 0, count: 0 };
+        this.dataModel.push(item);
+        this.records.push(record);
+
         let _this = this;
         let query = new AV.Query("pricelist");
         query.descending("name");
         query.find().then(pricelist => {
             pricelist.map(item => {
                 _this.priceList.push(item.attributes);
-                console.log(_this.priceList);
             });
         });
     },
@@ -150,16 +164,36 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 .at-table table {
     overflow: auto;
     background-color: #fff;
+}
+.at-table__thead {
+    font-family: inherit;
+    font-size: 14px;
 }
 .table-center {
     text-align: center;
 }
 tbody {
     font-size: larger;
+}
+.at-table--large {
+    /* width:1020px;
+    min-width:1020px;
+    max-width:1020px; */
+}
+
+.at-table__thead > tr > th {
+    background-color: #f5f7fa;
+}
+.at-table--large table th,
+.at-table--large table td {
+    height: 23px;
+}
+.at-table__cell {
+    padding: 12px;
 }
 .statistic-panel {
     display: flex;
@@ -168,11 +202,27 @@ tbody {
     width: 96%;
     margin: 12px auto;
     color: #3f536e;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: bold;
 }
 .divider {
     display: inline-block;
     width: 10px;
+}
+.meta-info {
+    display: flex;
+    width: 505px;
+    margin-bottom: 20px;
+}
+.meta-info-divider {
+    display: inline-block;
+    width: 20px;
+}
+
+.el-input-group__append,
+.el-input-group__prepend {
+    background-color: #f5f7fa;
+    color: #3f536e;
+    font-weight: bold;
 }
 </style>
