@@ -1,10 +1,11 @@
 <template>
-<el-footer>Silver Footer</el-footer>
+  <div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'SilverFooter',
+  name: '',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'

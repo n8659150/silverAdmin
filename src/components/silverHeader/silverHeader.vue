@@ -7,7 +7,7 @@
 
 <script>
 export default {
-    name: "silverHeader",
+    name: "SilverHeader",
     data() {
         return {
             
