@@ -7,7 +7,8 @@
       <router-view/>
       
     </el-container> -->
-        <el-container direction="vertical" style="height:100%;">
+        <SilverLogin v-if="$route.path === '/login'"></SilverLogin>
+        <el-container direction="vertical" style="height:100%;" v-if="$route.path !== '/login'">
             <SilverHeader></SilverHeader>
             <el-container>
                 <el-aside width="200px">
@@ -41,13 +42,27 @@
 </template>
 
 <script>
+import SilverLogin from "@/components/SilverLogin/SilverLogin";
 import SilverHeader from "@/components/SilverHeader/SilverHeader";
 import SilverFooter from "@/components/SilverFooter/SilverFooter";
 export default {
     name: "App",
     components: {
+        SilverLogin,
         SilverHeader,
         SilverFooter
+    },
+    data() {
+        return { currentUser: "" };
+    },
+    mounted() {
+        let currentUser = AV.User.current();
+        if (currentUser) {
+            this.currentUser = currentUser.attributes.username;
+            console.log(currentUser);
+        } else {
+            this.$route.push({path:'/login'});
+        }
     }
 };
 </script>
@@ -62,6 +77,7 @@ body {
 }
 
 #app {
+    width: 100%;
     height: 100%;
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
         "Microsoft YaHei", "微软雅黑", Arial, sans-serif;

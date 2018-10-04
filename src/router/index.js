@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-// import silverMain from '@/components/silverMain/silverMain'
+import SilverLogin from '@/components/SilverLogin/SilverLogin'
 import Summary from '@/components/silverMain/Summary/Summary'
 import NewOrder from '@/components/silverMain/NewOrder/NewOrder'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
+  routes: [{
+    path: '/login',
+    name: 'SilverLogin',
+    component: SilverLogin
+  },
     {
       path: '/',
       name: 'Summary',
