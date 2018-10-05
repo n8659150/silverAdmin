@@ -12,6 +12,9 @@ html {
 .column-center {
     justify-content: center;
 }
+.column-end {
+    justify-content: flex-end;
+}
 .space-between {
     justify-content: space-between;
 }
