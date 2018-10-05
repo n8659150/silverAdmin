@@ -54,12 +54,12 @@
                                 </td>
                                 <td class="at-table__cell table-center">
 
-                                    <at-select v-model="dataModel[index].model" placeholder="请选择"  filterable>
+                                    <at-select v-model="item.name" placeholder="请选择">
                                         <at-option v-for="(item,key) in priceList" :value="item.name" :key="key" v-if="priceList.length > 0">{{item.name}}</at-option>
                                     </at-select>
                                 </td>
                                 <td class="at-table__cell table-center">
-                                    {{matchPrice(dataModel[index].model)['price']}}
+                                    {{matchPrice(item)['price']}}
                                 </td>
                                 <td class="at-table__cell table-center">
 
@@ -69,8 +69,8 @@
                                         <at-button @click="add(index)">+</at-button>
                                     </at-button-group>
                                 </td>
-                                <td :if="dataModel[index].model" class="at-table__cell table-center">
-                                    {{item.count * matchPrice(dataModel[index].model)['price']}}
+                                <td v-if="item['name']" class="at-table__cell table-center">
+                                    {{item.count * matchPrice(item)['price']}}
                                 </td>
                             </tr>
                         </tbody>
@@ -82,9 +82,11 @@
                 <span v-if="priceList.length > 0">{{totalCount}} 件商品</span>
                 <span v-if="priceList.length > 0">总价：{{totalPrice}}</span>
             </div>
-
+            <div class="flex column-end">
+                <el-button id="login" style="margin-right:20px;" type="primary" @click="genOrder()" :disabled="orderNum === '' || customerName === '' || records[0]['name'] === '请选择'">提交订单</el-button>
+            </div>
         </div>
-
+        {{records}}
     </div>
 </template>
 
@@ -94,7 +96,7 @@ export default {
         return {
             // item_name: "",
             records: [],
-            dataModel: [],
+            // dataModel: [],
             priceList: [],
             orderNum: "",
             customerName: ""
@@ -111,14 +113,26 @@ export default {
             this.records[index].count--;
         },
         newRecord() {
-            this.dataModel.push({ model: "请选择" });
-            this.records.push({ name: "请选择", price: 0, count: 0 });
+            this.records.push({ name: "请选择", price: 0, count: 0, orderNum: null, customerName: null });
+        },
+        resetOrder() {
+            this.orderNum = '';
+            this.customerName = '';
+            this.records.length = 0;
+            this.records.push({ name: "请选择", price: 0, count: 0, orderNum: null, customerName: null });
+        },
+        genOrder() {
+            const recordsLen = this.records.length;
+            for (let i = 0; i < recordsLen; i++) {
+                this.records[i]['orderNum'] = this.orderNum;
+                this.records[i]['customerName'] = this.customerName;
+                this.records[i]['total'] = Number(this.records[i]['price']) * Number(this.records[i]['count']);
+            }
+            this.resetOrder();
         }
     },
     mounted() {
-        let item = { model: "请选择" };
-        let record = { name: "default_item", price: 0, count: 0 };
-        this.dataModel.push(item);
+        let record = { name: "请选择", price: 0, count: 0, orderNum: null, customerName: null };
         this.records.push(record);
 
         let _this = this;
@@ -134,10 +148,11 @@ export default {
         matchPrice: function() {
             return function(itemSelection) {
                 if (this.priceList) {
-                    let price = this.priceList.find(
-                        item => item.name == itemSelection
+                    let currentItem = this.priceList.find(
+                        item => item.name == itemSelection['name']
                     );
-                    return price;
+                    itemSelection['price'] = currentItem['price']
+                    return itemSelection;
                 }
             };
         },
@@ -152,7 +167,7 @@ export default {
             var totalPrice = 0;
             for (let i = 0; i < this.records.length; i++) {
                 let currentItem = this.priceList.find(
-                    item => item.name == this.dataModel[i]["model"]
+                    item => item.name == this.records[i]["name"]
                 );
                 // console.log(currentItem['price'])
                 totalPrice += currentItem["price"] * this.records[i].count;

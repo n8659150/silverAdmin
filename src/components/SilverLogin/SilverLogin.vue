@@ -64,7 +64,10 @@ export default {
                         : alert("登录失败,请检查网络");
                 },
                 function(error) {
-                    alert("用户名密码错误");
+                    _this.$message({
+                        message: "用户名密码错误",
+                        type: "error"
+                    });
                 }
             );
         }

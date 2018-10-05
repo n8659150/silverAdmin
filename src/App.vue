@@ -61,7 +61,7 @@ export default {
             this.currentUser = currentUser.attributes.username;
             console.log(currentUser);
         } else {
-            this.$route.push({path:'/login'});
+            this.$route.push({ path: "/login" });
         }
     }
 };
