@@ -19,7 +19,7 @@
 
                 <div class="at-table__body">
                     <table>
-                        <colgroup><col ><col ><col ><col ></colgroup>
+                        <colgroup><col><col><col><col></colgroup>
                         <thead class="at-table__thead">
                             <tr>
 
@@ -113,26 +113,76 @@ export default {
             this.records[index].count--;
         },
         newRecord() {
-            this.records.push({ name: "请选择", price: 0, count: 0, orderNum: null, customerName: null });
+            this.records.push({
+                name: "请选择",
+                price: 0,
+                count: 0,
+                orderNum: null,
+                customerName: null
+            });
         },
         resetOrder() {
-            this.orderNum = '';
-            this.customerName = '';
+            this.orderNum = "";
+            this.customerName = "";
             this.records.length = 0;
-            this.records.push({ name: "请选择", price: 0, count: 0, orderNum: null, customerName: null });
+            this.records.push({
+                name: "请选择",
+                price: 0,
+                count: 0,
+                orderNum: null,
+                customerName: null
+            });
+        },
+        processOrder(orderArray) {
+            const ordersLen = orderArray.length;
+            for (let i = 0; i < ordersLen; i++) {
+                orderArray[i]["orderNum"] = this.orderNum;
+                orderArray[i]["customerName"] = this.customerName;
+                orderArray[i]["total"] =
+                    Number(orderArray[i]["price"]) *
+                    Number(orderArray[i]["count"]);
+            }
         },
         genOrder() {
-            const recordsLen = this.records.length;
-            for (let i = 0; i < recordsLen; i++) {
-                this.records[i]['orderNum'] = this.orderNum;
-                this.records[i]['customerName'] = this.customerName;
-                this.records[i]['total'] = Number(this.records[i]['price']) * Number(this.records[i]['count']);
+           
+            this.processOrder(this.records);
+            this.submitOrder(this.records);
+            console.log(this.records);
+            
+        },
+        submitOrder(orderArray) {
+            let OrderList = AV.Object.extend("orderlist");
+            let orderList = new OrderList();
+            const ordersLen = orderArray.length;
+            for(let i = 0; i < ordersLen; i++) {
+                let orderList = new OrderList();
+                orderList.set("orderNum", orderArray[i]['orderNum']);
+                orderList.set("customerName", orderArray[i]['customerName']);
+                orderList.set("name", orderArray[i]['name']);
+                orderList.set("price", orderArray[i]['price']);
+                orderList.set("count", orderArray[i]['count']);
+                orderList.set("total", orderArray[i]['total']);
+                orderList.save().then(
+                function(orderList) {
+                    console.log("发布成功!id是 " + orderList.id);
+
+                },
+                function(error) {
+                    console.error(error);
+                }
+            );
             }
             this.resetOrder();
         }
     },
     mounted() {
-        let record = { name: "请选择", price: 0, count: 0, orderNum: null, customerName: null };
+        let record = {
+            name: "请选择",
+            price: 0,
+            count: 0,
+            orderNum: null,
+            customerName: null
+        };
         this.records.push(record);
 
         let _this = this;
@@ -149,9 +199,9 @@ export default {
             return function(itemSelection) {
                 if (this.priceList) {
                     let currentItem = this.priceList.find(
-                        item => item.name == itemSelection['name']
+                        item => item.name == itemSelection["name"]
                     );
-                    itemSelection['price'] = currentItem['price']
+                    itemSelection["price"] = currentItem["price"];
                     return itemSelection;
                 }
             };
