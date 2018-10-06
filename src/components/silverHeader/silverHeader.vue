@@ -33,6 +33,9 @@ export default {
 .silver-header {
   width:95%;
   margin:0 auto;
+  background-color: #fff;
+  /* box-shadow: 0 10px 60px 0 rgba(29,29,31,0.07);
+  opacity: 0.98; */
 }
 
 

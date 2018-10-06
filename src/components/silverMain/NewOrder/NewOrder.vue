@@ -86,7 +86,6 @@
                 <el-button id="login" style="margin-right:20px;" type="primary" @click="genOrder()" :disabled="orderNum === '' || customerName === '' || records[0]['name'] === '请选择'">提交订单</el-button>
             </div>
         </div>
-        {{records}}
     </div>
 </template>
 
@@ -144,33 +143,33 @@ export default {
             }
         },
         genOrder() {
-           
             this.processOrder(this.records);
             this.submitOrder(this.records);
             console.log(this.records);
-            
         },
         submitOrder(orderArray) {
             let OrderList = AV.Object.extend("orderlist");
             let orderList = new OrderList();
             const ordersLen = orderArray.length;
-            for(let i = 0; i < ordersLen; i++) {
+            for (let i = 0; i < ordersLen; i++) {
                 let orderList = new OrderList();
-                orderList.set("orderNum", orderArray[i]['orderNum']);
-                orderList.set("customerName", orderArray[i]['customerName']);
-                orderList.set("name", orderArray[i]['name']);
-                orderList.set("price", orderArray[i]['price']);
-                orderList.set("count", orderArray[i]['count']);
-                orderList.set("total", orderArray[i]['total']);
+                orderList.set("orderNum", orderArray[i]["orderNum"]);
+                orderList.set("customerName", orderArray[i]["customerName"]);
+                orderList.set("name", orderArray[i]["name"]);
+                orderList.set("price", orderArray[i]["price"]);
+                orderList.set("count", orderArray[i]["count"]);
+                orderList.set("total", orderArray[i]["total"]);
                 orderList.save().then(
-                function(orderList) {
-                    console.log("发布成功!id是 " + orderList.id);
-
-                },
-                function(error) {
-                    console.error(error);
-                }
-            );
+                    orderList => {
+                        this.$message({
+                            message: `发布成功!id是${orderList.id}`,
+                            type: "success"
+                        });
+                    },
+                    function(error) {
+                        console.error(error);
+                    }
+                );
             }
             this.resetOrder();
         }
@@ -242,7 +241,7 @@ export default {
     text-align: center;
 }
 tbody {
-    font-size: larger;
+    /* font-size: larger; */
 }
 .at-table--large {
     /* width:1020px;

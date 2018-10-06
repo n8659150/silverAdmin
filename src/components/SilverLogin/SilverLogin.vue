@@ -1,31 +1,31 @@
 <template>
 
-  <div class="abs-center">
-    <el-row>
-      <el-col style="text-align:center;" class="login-input">
-        <img src="@/assets/logo.png" width="60" height="60">
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col class="login-input">
-        <el-input id="name" v-model="username" placeholder="请输入帐号">
-          <template slot="prepend">帐号</template>
-        </el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col class="login-input">
-        <el-input id="password" v-model="password" type="password" placeholder="请输入密码">
-          <template slot="prepend">密码</template>
-        </el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col class="login-button">
-        <el-button id="login" style="width:100%" type="primary" @click="login()">登 录</el-button>
-      </el-col>
-    </el-row>
-  </div>
+    <div class="abs-center">
+        <el-row>
+            <el-col style="text-align:center;" class="login-input">
+                <img src="@/assets/logo.png" width="60" height="60">
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col class="login-input">
+                <el-input id="name" v-model="username" placeholder="请输入帐号">
+                    <template slot="prepend">帐号</template>
+                </el-input>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col class="login-input">
+                <el-input id="password" v-model="password" type="password" placeholder="请输入密码">
+                    <template slot="prepend">密码</template>
+                </el-input>
+            </el-col>
+        </el-row>
+        <el-row>
+            <el-col class="login-button">
+                <el-button id="login" style="width:100%" type="primary" @click="login()">登 录</el-button>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 <script>
@@ -76,10 +76,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
 .login-input,
 .login-button {
-    width: 292px;
+    width: 292px !important;
 }
 .login-input {
     margin-bottom: 12px;
