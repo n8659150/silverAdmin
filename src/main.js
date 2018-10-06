@@ -7,8 +7,8 @@ import App from './App'
 import AtComponents from 'at-ui'
 import 'at-ui-style'
 // leancloud
-const APP_ID = ''
-const APP_KEY = ''
+const APP_ID = ' '
+const APP_KEY = ' '
 import router from './router'
 AV.init({
   appId: APP_ID,
