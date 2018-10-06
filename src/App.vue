@@ -93,6 +93,7 @@ body {
     color: #333;
     text-align: center;
     line-height: 200px;
+    border-top: solid 1px #e6e6e6;
 }
 
 .el-main {
@@ -102,7 +103,9 @@ body {
 body > .el-container {
     margin-bottom: 40px;
 }
-
+.el-container {
+    border-top: solid 1px #e6e6e6;
+}
 .el-container:nth-child(5) .el-aside,
 .el-container:nth-child(6) .el-aside {
     line-height: 260px;
